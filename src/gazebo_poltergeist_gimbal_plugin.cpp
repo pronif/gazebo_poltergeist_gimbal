@@ -197,15 +197,15 @@ public:
             //joints_[i]->SetPosition(0,0.0); Attention: never use setposition function or fmax = 0
             //joints_[i]->SetParam("fmax", 0, 0.0);
 
-            // broadcast camera to base transform
-            math::Pose camera_link_pose = camera_mount_link_->GetRelativePose();
-            tf::StampedTransform tf_base_camera;
-            gazeboPoseToStampedTransform(camera_link_pose, &tf_base_camera);
-            br_.sendTransform(tf_base_camera);
-
-            previousUpdate_ = _info.simTime;
-
         }
+
+        // broadcast camera to base transform
+        math::Pose camera_link_pose = camera_mount_link_->GetRelativePose();
+        tf::StampedTransform tf_base_camera;
+        gazeboPoseToStampedTransform(camera_link_pose, &tf_base_camera);
+        br_.sendTransform(tf_base_camera);
+
+        previousUpdate_ = _info.simTime;
     }
 
     void gazeboPoseToStampedTransform(const math::Pose& pose, tf::StampedTransform* stamped_transform)
