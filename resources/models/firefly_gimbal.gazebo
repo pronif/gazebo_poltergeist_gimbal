@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+    based on rotors example
+-->
+
+<robot name="$(arg mav_name)" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- Instantiate the mav with a generic odometry sensor. -->
+  <xacro:include filename="$(find rotors_description)/urdf/mav_generic_odometry_sensor.gazebo" />
+  <!-- Include the gimbal definitions -->
+  <xacro:include filename="$(find gazebo_poltergeist_gimbal)/resources/models/gimbal_snippets.xacro" />
+
+  <xacro:bottom_2D_gimbal
+    namespace="firefly"
+    visible="true"
+    parent_link="${namespace}/base_link">
+    <origin xyz="0.0 0.0 -0.1" rpy="0.0 0.0 0.0" />
+  </xacro:bottom_2D_gimbal>
+
+  <!-- camera -->
+  <gazebo reference='${namespace}/camera_mount_link'>
+    <sensor type="camera" name="camera_gimbal">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>1920</width>
+          <height>1080</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>camera_gimbal</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_mount_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>
