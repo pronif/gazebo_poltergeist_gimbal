@@ -58,13 +58,23 @@
 	</link>
 
 
-        <xacro:include filename="$(find gazebo_poltergeist_gimbal)/resources/models/gimbal_snippets.xacro" />
+   <xacro:include filename="$(find gazebo_poltergeist_gimbal)/resources/models/gimbal_snippets.xacro" />
 <!--
   <xacro:bottom_1D_gimbal namespace="${namespace}"  visible="false" parent_link="${namespace}/base_link">
            <origin xyz="$(arg vi_sensor_position_xyz)" rpy="$(arg vi_sensor_orientation_rpy)"/>
   </xacro:bottom_1D_gimbal>
  -->
+ <!--
 	<xacro:bottom_1D_gimbal namespace="firefly"  visible="true" parent_link="up_stick_link">
            <origin xyz="0.5 0 0.8" rpy="0 0 0"/>
 	</xacro:bottom_1D_gimbal>
+	-->
+
+  <xacro:bottom_1D_gimbal
+    namespace="firefly"
+    visible="true"
+    parent_link="firefly/up_stick_link">
+    <origin xyz="0.5 0.0 0.5" rpy="0.0 0.0 0.0" />
+  </xacro:bottom_1D_gimbal>
+
 </robot>
