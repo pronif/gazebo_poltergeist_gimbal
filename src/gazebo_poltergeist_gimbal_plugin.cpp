@@ -99,6 +99,7 @@ public:
         max_rotational_velocity_ = kDefaultVelocity;
         if (_sdf->HasElement("gimbal_angular_velocity"))
             max_rotational_velocity_ = _sdf->Get<double>("gimbal_angular_velocity");
+        ROS_INFO_STREAM( "Gimbal Max rotational velocity: " << max_rotational_velocity_);
 
 
         input_sub_ = node_handle_->subscribe<sensor_msgs::Joy>(

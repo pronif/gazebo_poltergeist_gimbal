@@ -145,7 +145,7 @@
         </gazebo>
     </xacro:macro>
 
-    <xacro:macro name="bottom_2D_gimbal" params="namespace parent_link *origin visible">
+    <xacro:macro name="bottom_2D_gimbal" params="namespace parent_link *origin visible max_rotational_velocity">
 
         <joint name="gimbal_fix" type="prismatic"> <!-- prismatic joint with zero limits(default) is a hack for a fixed joint (needed on gazebo7)-->
             <parent link="${parent_link}"/>
@@ -236,7 +236,7 @@
                 <yaw_direction>2</yaw_direction>
                 <yaw_zero>0</yaw_zero>
 
-                <gimbal_angular_velocity>0.5</gimbal_angular_velocity>
+                <gimbal_angular_velocity>${max_rotational_velocity}</gimbal_angular_velocity>
                 <ref_base_link>${parent_link}</ref_base_link>
                 <camera_link>${namespace}/camera_mount_link</camera_link>
             </plugin>
